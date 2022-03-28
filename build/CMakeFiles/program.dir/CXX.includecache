@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../inc/matrix.hh
+size.hh
+../inc/size.hh
+vector.hh
+../inc/vector.hh
+iostream
+-
+cstdlib
+-
+
+../inc/size.hh
+
+../inc/vector.hh
+size.hh
+../inc/size.hh
+iostream
+-
+
+/home/ljaniec/Documents/Uczelnia/2021_2022/KPO/templates/kpo-zad4/src/matrix.cpp
+matrix.hh
+/home/ljaniec/Documents/Uczelnia/2021_2022/KPO/templates/kpo-zad4/src/matrix.hh
+
+/home/ljaniec/Documents/Uczelnia/2021_2022/KPO/templates/kpo-zad4/src/vector.cpp
+vector.hh
+/home/ljaniec/Documents/Uczelnia/2021_2022/KPO/templates/kpo-zad4/src/vector.hh
+

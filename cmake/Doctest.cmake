@@ -1,6 +1,12 @@
 if(ENABLE_DOCTESTS)
     add_definitions(-DENABLE_DOCTEST_IN_LIBRARY)
-endif()
+    include(FetchContent)
+    FetchContent_Declare(
+            DocTest
+            GIT_REPOSITORY "https://github.com/onqtam/doctest"
+            GIT_TAG "932a2ca50666138256dae56fbb16db3b1cae133a"
+    )
 
-add_library(doctest INTERFACE)
-target_include_directories(doctest INTERFACE ${PROJECT_SOURCE_DIR}/external/doctest/doctest)
+    FetchContent_MakeAvailable(DocTest)
+    include_directories(${DOCTEST_INCLUDE_DIR})
+endif()

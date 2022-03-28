@@ -5,7 +5,7 @@
 #
 # For many purposes, you may not need to change anything about this file.
 
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.14)
 
 # Set project name, version and laguages here. (change as needed)
 # Version numbers are available by including "exampleConfig.h" in 
@@ -38,11 +38,12 @@ find_lto(CXX)
 #                         Locate files (change as needed).
 # --------------------------------------------------------------------------------
 set(SOURCES          # All .cpp files in src/
-    src/example.cpp
+    src/vector.cpp
+    src/matrix.cpp
 )
 set(TESTFILES        # All .cpp files in tests/
     tests/main.cpp
-    tests/dummy.cpp
+    tests/tests_vector.cpp
 )
 set(LIBRARY_NAME program)  # Default name for the library built from src/*.cpp (change if you wish)
 
