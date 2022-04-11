@@ -1,32 +1,36 @@
-#pragma once
+#ifndef MACIERZ_HH
+#define MACIERZ_HH
 
-#include "size.hh"
+#include "size.h"
 #include "vector.hh"
+#include <algorithm>
 #include <iostream>
-#include <cstdlib>
 
-class Matrix {
+class Matrix 
+{
 
-private:
-    double value[SIZE][SIZE];               // Wartosci macierzy
+        Vector Tablica[MATRIXSIZE]; 
 
-public:
-    Matrix(double [SIZE][SIZE]);            // Konstruktor klasy
+        double Wyznacznik;
 
-    Matrix();                               // Konstruktor klasy
 
-    Vector operator * (Vector tmp);           // Operator mnożenia przez wektor
 
-    Matrix operator + (Matrix tmp);
+        public:
 
-    double  &operator () (unsigned int row, unsigned int column);
-    
-    const double &operator () (unsigned int row, unsigned int column) const;
+        Vector operator[](int i) const;
+        Vector &operator[](int i);
+        Vector operator*(Vector Skl);
+
+        double get_Wyznacznik()const{return Wyznacznik;};
+        void gausMethod();
+        void podmianaWiersza(Vector wek, int i);
+        
 };
 
-std::istream &operator>>(std::istream &in, Matrix &mat);
+//Przeciazenia operatora >>
+std::istream& operator >> (std::istream &Strm, Matrix &Matriks);
+//Przeciazenia operatora <<
+std::ostream& operator << (std::ostream &Strm, const Matrix &Matriks);
 
-std::ostream &operator<<(std::ostream &out, Matrix const &mat);
 
-
-
+#endif

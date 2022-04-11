@@ -1,36 +1,32 @@
-#pragma once
+#ifndef WEKTOR_HH
+#define WEKTOR_HH
 
-#include "size.hh"
+#include "size.h"
 #include <iostream>
 
-class Vector {
+using namespace std;
 
-private:
+class Vector
+{
+    double Tablica[MATRIXSIZE];
 
-    double size[SIZE];     //Tablica wektora
+    public:
 
-public:
+    double get_Tablica(int i) const;
+    double &set_Tablica(int i);
+    double operator[](int i) const;
+    double &operator[](int i);
+    double operator*(Vector const Skl);
 
-    Vector();
-
-    Vector(double [SIZE]);
-
-    Vector operator + (const Vector &v);
-
-    Vector operator - (const Vector &v);
-
-    Vector operator * (const double &tmp);
-
-    Vector operator / (const double &tmp);
-
-    const double &operator [] (int index) const;
-
-    double &operator [] (int index);
-
+    Vector operator+(Vector const Skl);
+    Vector operator-(Vector const Skl);
+    Vector operator*(double const Skl);
+    Vector operator/(double const Skl);
 };
 
-std::ostream &operator << (std::ostream &out, Vector const &tmp);
+//Przeciazenia operatora >>
+std::istream &operator>>(std::istream &Strm, Vector &vec);
+//Przeciazenia operatora <<
+std::ostream &operator<<(std::ostream &Strm, const Vector &vec);
 
-std::istream &operator >> (std::istream &in, Vector &tmp);
-
-
+#endif

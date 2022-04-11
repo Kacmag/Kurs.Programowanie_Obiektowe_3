@@ -1,161 +1,110 @@
 #include "vector.hh"
 
-/******************************************************************************
- |  Konstruktor klasy Vector.                                                 |
- |  Argumenty:                                                                |
- |      Brak argumentow.                                                      |
- |  Zwraca:                                                                   |
- |      Tablice wypelniona wartoscia 0.                                       |
- */
-Vector::Vector() {
-    for (int i = 0; i < SIZE; ++i) {
-        size[i] = 0;
-    }
+double Vector::get_Tablica(int i) const
+{
+    return Tablica[i];
 }
 
 
-/******************************************************************************
- |  Konstruktor klasy Vector.                                                 |
- |  Argumenty:                                                                |
- |      tmp - Jednowymiarowa tablica typu double.                             |
- |  Zwraca:                                                                   |
- |      Tablice wypelniona wartosciami podanymi w argumencie.                 |
- */
 
-Vector::Vector(double tmp[SIZE]) {
-    for (int i = 0; i < SIZE; ++i) {
-        size[i] = tmp[i];
-    }
+double &Vector::set_Tablica(int i)
+{
+    return Tablica[i];
 }
 
 
-/******************************************************************************
- |  Realizuje dodawanie dwoch wektorow.                                       |
- |  Argumenty:                                                                |
- |      this - pierwszy skladnik dodawania,                                   |
- |      v - drugi skladnik dodawania.                                         |
- |  Zwraca:                                                                   |
- |      Sume dwoch skladnikow przekazanych jako wskaznik                      |
- |      na parametr.                                                          |
- */
-Vector Vector::operator + (const Vector &v) {
-    Vector result;
-    for (int i = 0; i < SIZE; ++i) {
-        result[i] = size[i] += v[i];
-    }
-    return result;
+
+double Vector::operator[](int i) const
+{
+    if (i >= 0 && i < MATRIXSIZE)
+        return Tablica[i];
+    else
+        cerr << "Blad indexu" << endl;
+    return Tablica[i];
 }
 
 
-/******************************************************************************
- |  Realizuje odejmowanie dwoch wektorow.                                     |
- |  Argumenty:                                                                |
- |      this - pierwszy skladnik odejmowania,                                 |
- |      v - drugi skladnik odejmowania.                                       |
- |  Zwraca:                                                                   |
- |      Roznice dwoch skladnikow przekazanych jako wskaznik                   |
- |      na parametr.                                                          |
- */
-Vector Vector::operator - (const Vector &v) {
-    Vector result;
-    for (int i = 0; i < SIZE; ++i) {
-        result[i] = size[i] -= v[i];
-    }
-    return result;
+
+double &Vector::operator[](int i)
+{
+    if (i >= 0 && i < MATRIXSIZE)
+        return Tablica[i];
+    else
+        cerr << "Blad indexu" << endl;
+    return  Tablica[i];
 }
 
 
-/******************************************************************************
- |  Realizuje mnozenie wektora przez liczbe zmiennoprzecinkowa.               |
- |  Argumenty:                                                                |
- |      this - pierwszy skladnik mnozenia (wektor),                           |
- |      v - drugi skladnik mnozenia (liczba typu double).                     |
- |  Zwraca:                                                                   |
- |      Iloczyn dwoch skladnikow przekazanych jako wskaznik                   |
- |      na parametr.                                                          |
- */
 
-Vector Vector::operator * (const double &tmp) {
-    Vector result;
-    for (int i = 0; i < SIZE; ++i) {
-        result[i] = size[i] *= tmp;
-    }
-    return result;
+Vector Vector::operator+(Vector const Skl)
+{
+    Vector Wynik;
+    for (int i = 0; i < MATRIXSIZE; i++)
+        Wynik[i] = Tablica[i] + Skl[i];
+
+    return Wynik;
 }
 
 
-/******************************************************************************
- |  Realizuje dzielenie dwoch wektorow.                                       |
- |  Argumenty:                                                                |
- |      this - licznik dzielenia,                                             |
- |      v - mianownik dzielenia.                                              |
- |  Zwraca:                                                                   |
- |      Iloraz dwoch skladnikow przekazanych jako wskaznik                    |
- |      na parametr.                                                          |
- */
 
-Vector Vector::operator / (const double &tmp) {
-    Vector result;
+Vector Vector::operator-(Vector const Skl)
+{
+    Vector Wynik;
+    for (int i = 0; i < MATRIXSIZE; i++)
+        Wynik[i] = Tablica[i] - Skl[i];
 
-    for (int i = 0; i < SIZE; ++i) {
-        result[i] = size[i] / tmp;
-    }
-
-    return result;
+    return Wynik;
 }
 
 
-/******************************************************************************
- |  Funktor wektora.                                                          |
- |  Argumenty:                                                                |
- |      index - index wektora.                                                |
- |  Zwraca:                                                                   |
- |      Wartosc wektora w danym miejscu tablicy jako stala.                   |
- */
-const double &Vector::operator [] (int index) const {
-    if (index < 0 || index >= SIZE) {
-        std::cerr << "Error: Wektor jest poza zasiegiem!" << std::endl;
-    } // lepiej byłoby rzucić wyjątkiem stdexcept
-    return size[index];
+
+double Vector::operator*(Vector const Skl)
+{
+    double Wynik = 0;
+    for (int i = 0; i < MATRIXSIZE; i++)
+        Wynik += Tablica[i] * Skl[i];
+
+    return Wynik;
 }
 
 
-/******************************************************************************
- |  Funktor wektora.                                                          |
- |  Argumenty:                                                                |
- |      index - index wektora.                                                |
- |  Zwraca:                                                                   |
- |      Wartosc wektora w danym miejscu tablicy.                              |
- */
-double &Vector::operator[](int index) {
-    return const_cast<double &>(const_cast<const Vector *>(this)->operator[](index));
+
+Vector Vector::operator*(double const Skl)
+{
+    Vector Wynik;
+    for (int i = 0; i < MATRIXSIZE; i++)
+        Wynik[i] = Tablica[i] * Skl;
+
+    return Wynik;
 }
 
 
-/******************************************************************************
- |  Przeciazenie operatora <<                                                 |
- |  Argumenty:                                                                |
- |      out - strumien wejsciowy,                                             |
- |      tmp - wektor.                                                         |
- */
-std::ostream &operator << (std::ostream &out, Vector const &tmp) {
-    for (int i = 0; i < SIZE; ++i) {
-        out << "[ " << tmp[i] << " ]\n";
-    }
-    return out;
+
+Vector Vector::operator/(double const Skl)
+{
+    Vector Wynik;
+    for (int i = 0; i < MATRIXSIZE; i++)
+        Wynik[i] = Tablica[i] / Skl;
+
+    return Wynik;
 }
 
 
-/******************************************************************************
- |  Przeciazenie operatora >>                                                 |
- |  Argumenty:                                                                |
- |      in - strumien wyjsciowy,                                              |
- |      tmp - wektor.                                                         |
- */
-std::istream &operator >> (std::istream &in, Vector &tmp) {
-    for (int i = 0; i < SIZE; ++i) {
-        in >> tmp[i];
-    }
-    std::cout << std::endl;
-    return in;
+
+std::istream &operator>>(std::istream &Strm, Vector &vec)
+{
+    for(int i=0; i<MATRIXSIZE; i++)
+      Strm>>vec[i];
+
+return Strm;
+}
+
+
+
+std::ostream &operator<<(std::ostream &Strm, const Vector &vec)
+{
+    for(int i=0; i<MATRIXSIZE; i++)
+      Strm<<vec[i]<<" ";
+
+return Strm;
 }
